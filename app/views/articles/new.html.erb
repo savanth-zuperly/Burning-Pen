@@ -1,3 +1,13 @@
+<%= if @article.errors.any? %>
+	<h2>The following errors prevented the creation of article</h2>
+	<ul>
+		<%= @article.errors.full_messages.each do |msg| %>
+		<li>
+			<%= msg %>
+		</li>
+	</ul>
+<% end %>
+
 <%= form_with scope: :article, url: articles_path, local: true do |f| %>
 
 <p>
@@ -6,7 +16,7 @@
 </p>
 
 <p>
-	<%= f.label :description %><br>
+	<%= f.label :description %><br>>
 	<%= f.text_field :description %>
 </p>
 
