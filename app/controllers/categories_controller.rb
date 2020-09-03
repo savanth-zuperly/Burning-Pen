@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
 
 	before_action :set_category, only: [:show]
+	before_action :require_admin, only: [:new,:create]
 
 	def new
 		@category = Category.new
@@ -33,5 +34,12 @@ class CategoriesController < ApplicationController
 	def set_category 
 		@category =  Category.find(params[:id])
 	end
+
+	def require_admin
+		if !(logged_in? && current_user.admin?)
+			flash[:alert] = "You don't have permission to create the category"
+			redirect_to categories_path
+		end
+	end	
 
 end
