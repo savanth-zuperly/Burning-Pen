@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
 
-	before_action :set_category, only: [:show]
-	before_action :require_admin, only: [:new,:create]
+	before_action :set_category, only: [:show,:edit,:update]
+	before_action :require_admin, only: [:new,:create,:edit]
 
 	def new
 		@category = Category.new
@@ -22,6 +22,18 @@ class CategoriesController < ApplicationController
 			redirect_to @category
 		else
 			render 'new'
+		end
+	end
+
+	def edit 
+	end
+
+	def update
+		if @category.update(category_params)
+			flash[:notice] = "Category name updated Successfully"
+			redirect_to @category
+		else
+			render 'edit'
 		end
 	end
 
